@@ -15,8 +15,16 @@ class ExampleTest extends TestCase
     #[Test]
     public function hello_world_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        #teniendo
 
+
+        #haciendo
+        $response = $this->get('api/v1/hello-world');
+
+        #esperando
+        $response->assertJsonStructure(['msg']);
+        $response->assertJson(['msg' => 'Hello World!']);
         $response->assertStatus(200);
+
     }
 }

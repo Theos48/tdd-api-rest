@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Route;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         using: function() {
-            $PREFIX_API = 'api';
-            $PREFIX_API_APP = $PREFIX_API . '/v1';
+            $PREFIX_API = 'api/v1';
             $PREFIX_API_APP_AUTH = $PREFIX_API . '/auth';
 
             Route::middleware('api')
