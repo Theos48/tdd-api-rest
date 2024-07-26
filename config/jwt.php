@@ -167,7 +167,7 @@ return [
     */
 
     'persistent_claims' => [
-        // 'foo',
+        'message' => 'hola mundo',
         // 'bar',
     ],
 
