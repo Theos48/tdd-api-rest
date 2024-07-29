@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ApiResponseHelper;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller {
-
     /**
      * Create a new AuthController instance.
      *
@@ -17,15 +17,23 @@ class AuthController extends Controller {
 
     public function login(Request $request){
 
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:8',
+        ]);
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return ApiResponseHelper::errorResponse('Unauthorized', 401);
         }
 
-        return response()->json([
-            'token' => $token,
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        return  ApiResponseHelper::successResponse(
+            [
+                'token' => $token,
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ]
+        );
+
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Traits;
-
+namespace App\Helpers;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
@@ -10,9 +9,8 @@ use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-trait ApiResponseTrait {
-
-    /**
+class ApiResponseHelper {
+      /**
      * Returns a JSON response for successful operations.
      * @param array $data
      * @param string $message
@@ -20,7 +18,7 @@ trait ApiResponseTrait {
      *
      * @return JsonResponse
      */
-    protected function successResponse(array $data = [], string $message = 'success', int $code = Response::HTTP_OK): JsonResponse {
+    public static function successResponse(array $data = [], string $message = 'success', int $code = Response::HTTP_OK): JsonResponse {
         return response()->json([
             'data' => $data,
             'message' => $message,
@@ -37,7 +35,7 @@ trait ApiResponseTrait {
      *
      * @return JsonResponse
      */
-    protected function errorResponse(string $message = 'Something went wrong!', int $code = Response::HTTP_INTERNAL_SERVER_ERROR, array $errors = []): JsonResponse {
+    public static function errorResponse(string $message = 'Something went wrong!', int $code = Response::HTTP_INTERNAL_SERVER_ERROR, array $errors = []): JsonResponse {
         return response()->json([
             'message' => $message,
             'status_code' => $code,
@@ -54,9 +52,9 @@ trait ApiResponseTrait {
      *
      * @return never
      */
-    protected function logAndThrowError(Throwable $exception, string $message = 'Something went wrong! Process not completed', int $code = Response::HTTP_INTERNAL_SERVER_ERROR): never {
+    public static function logAndThrowError(Throwable $exception, string $message = 'Something went wrong! Process not completed', int $code = Response::HTTP_INTERNAL_SERVER_ERROR): never {
         Log::error($exception->getMessage(),  ['exception' => $exception]);
-        throw new HttpResponseException($this->errorResponse($message, $code));
+        throw new HttpResponseException(self::errorResponse($message, $code));
     }
 
     /**
@@ -68,9 +66,8 @@ trait ApiResponseTrait {
      *
      * @return never
      */
-    protected function rollBackAndErrorResponse(Throwable $exception, $message = 'Something went wrong! Process not completed', int $code = Response::HTTP_INTERNAL_SERVER_ERROR): never {
+    public static function rollBackAndErrorResponse(Throwable $exception, string $message = 'Something went wrong! Process not completed', int $code = Response::HTTP_INTERNAL_SERVER_ERROR): never {
         DB::rollBack();
-        $this->logAndThrowError($exception, $message, $code);
+        self::logAndThrowError($exception, $message, $code);
     }
-
 }
