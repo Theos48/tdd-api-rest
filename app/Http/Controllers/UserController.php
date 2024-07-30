@@ -26,4 +26,13 @@ class UserController extends Controller {
         $user = User::create($request->except('password_confirmation'))->toArray();
         return ApiResponseHelper::successResponse($user, 'User has been created', Response::HTTP_CREATED);
     }
+
+	public function update(Request $request) {
+		$request->validate([
+			'name' => 'required|string|max:255|min:3',
+			'last_name' => 'required|string|max:255|min:3',
+		]);
+
+
+	}
 }
