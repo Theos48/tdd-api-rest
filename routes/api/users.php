@@ -5,3 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('store', [UserController::class, 'store']);
 Route::put('update/profile', [UserController::class, 'update']);
+Route::put('update/password', [UserController::class, 'updatePassword']);

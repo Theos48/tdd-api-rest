@@ -50,7 +50,7 @@ class UpdateUserDataTest extends TestCase {
     }
 
     #[Test]
-    public function an_unauthenticated_user_cannot_update_their_email() {
+    public function an_authenticated_user_cannot_update_their_email() {
         $data = [
             'name' => 'newname',
             'last_name' => 'new lastname',
@@ -81,7 +81,7 @@ class UpdateUserDataTest extends TestCase {
     }
 
     #[Test]
-    public function an_unauthenticated_user_cannot_update_their_password() {
+    public function an_authenticated_user_cannot_update_their_password() {
         $data = [
             'name' => 'newname',
             'last_name' => 'new lastname',
