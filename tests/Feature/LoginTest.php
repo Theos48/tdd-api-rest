@@ -8,9 +8,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class LoginTest extends TestCase
-{
-     use RefreshDatabase;
+class LoginTest extends TestCase {
+    use RefreshDatabase;
 
     protected function setUp(): void {
         parent::setUp();
@@ -28,7 +27,7 @@ class LoginTest extends TestCase
         $response = $this->post("{$this->apiBaseUrl}/auth/login", $credentials);
 
         $response->assertStatus(200);
-        $response->assertJsonStructure(['data' => ['token']] );
+        $response->assertJsonStructure(['data' => ['token']]);
     }
 
     #[Test]
@@ -48,7 +47,7 @@ class LoginTest extends TestCase
         $response = $this->postJson("{$this->apiBaseUrl}/auth/login", $credentials);
 
         $response->assertStatus(422);
-        $response->assertJsonStructure(['message', 'status_code' ,'errors' => ['email']]);
+        $response->assertJsonStructure(['message', 'status_code', 'errors' => ['email']]);
     }
 
     #[Test]
@@ -58,7 +57,7 @@ class LoginTest extends TestCase
         $response = $this->postJson("{$this->apiBaseUrl}/auth/login", $credentials);
 
         $response->assertStatus(422);
-        $response->assertJsonStructure(['message', 'status_code' ,'errors' => ['email']]);
+        $response->assertJsonStructure(['message', 'status_code', 'errors' => ['email']]);
     }
 
     #[Test]
@@ -68,7 +67,7 @@ class LoginTest extends TestCase
         $response = $this->postJson("{$this->apiBaseUrl}/auth/login", $credentials);
 
         $response->assertStatus(422);
-        $response->assertJsonStructure(['message', 'status_code' ,'errors' => ['email']]);
+        $response->assertJsonStructure(['message', 'status_code', 'errors' => ['email']]);
     }
 
     #[Test]
