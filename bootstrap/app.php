@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
             $PREFIX_API = 'api/v1';
             $PREFIX_API_APP_AUTH = $PREFIX_API . '/auth';
             $PREFIX_API_APP_USER = $PREFIX_API . '/users';
+            $PREFIX_API_APP_RESTAURANTS = $PREFIX_API . '/restaurants';
 
             Route::middleware('api')
                 -> prefix($PREFIX_API)
@@ -26,6 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('api')
                 -> prefix($PREFIX_API_APP_USER)
                 -> group(base_path('routes/api/users.php'));
+
+            Route::middleware('api')
+                -> prefix($PREFIX_API_APP_RESTAURANTS)
+                -> group(base_path('routes/api/restaurants.php'));
         },
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',

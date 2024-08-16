@@ -4,14 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('forgot-password', [AuthController::class, 'sendPasswordResetLink']);
-    Route::post('reset-password', [AuthController::class, 'resetPassword']);
-//    Route::post('logout', 'AuthController@logout');
-//    Route::post('refresh', 'AuthController@refresh');
-//    Route::post('me', 'AuthController@me');
+Route::post('login', [AuthController::class, 'login']);
+Route::post('forgot-password', [AuthController::class, 'sendPasswordResetLink']);
+Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
-
-Route::get('/hello-world', function (Request $request) {
-    return response()->json(['msg' => 'Hello World!']);
-});
