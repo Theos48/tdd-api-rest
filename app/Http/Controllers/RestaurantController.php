@@ -14,7 +14,8 @@ class RestaurantController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        //
+        $restaurants = auth()->user()->restaurants()->get();
+        return ApiResponseHelper::successResponse(data: RestaurantResource::collection($restaurants));
     }
 
     /**
