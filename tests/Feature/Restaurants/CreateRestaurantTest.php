@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Restaurants;
 
 use App\Models\Restaurant;
 use App\Models\User;
