@@ -39,7 +39,7 @@ class RestaurantPolicy {
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, Restaurant $restaurant): bool {
-        //
+        return $user->id === $restaurant->user_id;
     }
 
     /**

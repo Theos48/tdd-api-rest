@@ -46,6 +46,8 @@ class RestaurantController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(Restaurant $restaurant) {
-        //
+        Gate::authorize('delete', $restaurant);
+        $restaurant->delete();
+        return ApiResponseHelper::successResponse();
     }
 }
