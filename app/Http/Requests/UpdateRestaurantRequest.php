@@ -4,14 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRestaurantRequest extends FormRequest
-{
+class UpdateRestaurantRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
+    public function authorize(): bool {
+        return auth()->check();
     }
 
     /**
@@ -19,10 +17,17 @@ class UpdateRestaurantRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string',
+            'description' => 'required|string',
         ];
+    }
+
+    public function prepareForValidation(): void {
+          $this->merge([
+            'slug' => str($this->get('name') . ' ' . uniqid())->slug()->toString()
+        ]);
     }
 }

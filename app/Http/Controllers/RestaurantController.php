@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Gate;
 
 class RestaurantController extends Controller {
     /**
@@ -35,7 +36,9 @@ class RestaurantController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(UpdateRestaurantRequest $request, Restaurant $restaurant) {
-        //
+        Gate::authorize('update', $restaurant);
+        $restaurant->update($request->validated());
+        return ApiResponseHelper::successResponse(data: RestaurantResource::make($restaurant));
     }
 
     /**
