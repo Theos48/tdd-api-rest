@@ -45,6 +45,12 @@ class DeleteRestaurantTest extends TestCase {
 
         $response->assertStatus(403);
         $this->assertDatabaseCount('restaurants', 2);
+        $this->assertDatabaseHas('restaurants', [
+            'id' => $restaurant->id,
+            'name' => $restaurant->name,
+            'slug' => $restaurant->slug,
+            'description' => $restaurant->description,
+        ]);
     }
 
 
