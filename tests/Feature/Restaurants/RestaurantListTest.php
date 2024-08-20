@@ -31,8 +31,8 @@ class RestaurantListTest extends TestCase {
         $response = $this->getJson("{$this->apiBaseUrl}/restaurants");
 
         $response->assertOk();
-        $response->assertJsonCount(10, 'data');
-        $response->assertJsonStructure(['message', 'data' => [['id', 'name', 'slug', 'description']], 'status_code']);
+        $response->assertJsonCount(10, 'data.list');
+        $response->assertJsonStructure(['message', 'data' => ['list' => [['id', 'name', 'slug', 'description']]], 'status_code']);
     }
 
     #[Test]
@@ -46,7 +46,7 @@ class RestaurantListTest extends TestCase {
         $response = $this->getJson("{$this->apiBaseUrl}/restaurants");
 
         $response->assertOk();
-        $response->assertJsonCount(0, 'data');
+        $response->assertJsonCount(0, 'data.list');
     }
 
     #[Test]

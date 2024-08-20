@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\ApiResponseHelper;
 use App\Http\Requests\StoreRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
+use App\Http\Resources\PaginatedListCollection;
+use App\Http\Resources\RestaurantCollection;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Gate;
@@ -14,8 +16,8 @@ class RestaurantController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        $restaurants = auth()->user()->restaurants()->get();
-        return ApiResponseHelper::successResponse(data: RestaurantResource::collection($restaurants));
+        $restaurants = auth()->user()->restaurants()->paginate();
+        return ApiResponseHelper::successResponse(data: new PaginatedListCollection($restaurants), message: "Restaurants retrieved successfully");
     }
 
     /**
@@ -30,7 +32,8 @@ class RestaurantController extends Controller {
      * Display the specified resource.
      */
     public function show(Restaurant $restaurant) {
-        //
+        Gate::authorize('view', $restaurant);
+        return ApiResponseHelper::successResponse(data: RestaurantResource::make($restaurant),);
     }
 
     /**
