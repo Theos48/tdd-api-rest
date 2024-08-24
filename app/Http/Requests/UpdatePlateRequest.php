@@ -4,14 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePlateRequest extends FormRequest
-{
+class UpdatePlateRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
+    public function authorize(): bool {
+        return auth()->check();
     }
 
     /**
@@ -19,10 +17,11 @@ class UpdatePlateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'price' => 'required|string',
+            'description' => 'required|string',
         ];
     }
 }

@@ -121,4 +121,20 @@ class CreatePlateTest extends TestCase {
         $response->assertJsonStructure(['message', 'status_code', 'errors' => ['price']]);
     }
 
+        #[Test]
+    public function restaurant_id_must_exist_in_database() {
+        $data = [
+            'name' => 'name plate',
+            'description' => 'description plate',
+            'price' => '$10',
+        ];
+
+        $user = User::find(1);
+        $this->actingAsUser($user);
+
+        $response = $this->postJson("{$this->apiBaseUrl}/restaurants/4004/plates", $data);
+
+        $response->assertStatus(404);
+    }
+
 }

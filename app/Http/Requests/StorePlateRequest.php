@@ -25,7 +25,6 @@ class StorePlateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'price' => 'required|string',
             'description' => 'required|string',
-
         ];
     }
 }
