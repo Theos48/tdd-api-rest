@@ -6,6 +6,7 @@ use App\Helpers\ApiResponseHelper;
 use App\Http\Requests\StorePlateRequest;
 use App\Http\Requests\UpdatePlateRequest;
 use App\Http\Resources\PaginatedListCollection;
+use App\Http\Resources\PlateResource;
 use App\Models\Plate;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Gate;
@@ -23,8 +24,10 @@ class PlateController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePlateRequest $request) {
-        //
+    public function store(StorePlateRequest $request, Restaurant $restaurant) {
+        Gate::authorize('view', $restaurant);
+        $plate = $restaurant->plates()->create($request->all());
+        return ApiResponseHelper::successResponse(data:  PlateResource::make($plate), message: "Plate created successfully");
     }
 
     /**
