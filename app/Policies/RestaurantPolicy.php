@@ -14,6 +14,10 @@ class RestaurantPolicy {
         //
     }
 
+    public function viewPlates(User $user, Restaurant $restaurant): bool {
+        return $user->id === $restaurant->user_id;
+    }
+
     /**
      * Determine whether the user can view the model.
      */
