@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PlateController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
@@ -13,4 +14,5 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('{restaurant}/delete', [RestaurantController::class, 'destroy']);
 
     Route::apiResource('{restaurant:id}/plates', PlateController::class);
+    Route::apiResource('{restaurant:id}/menus', MenuController::class);
 });
